@@ -1,4 +1,5 @@
 from matplotlib import pyplot as plt
+import random
 
 def plot(lst):
     lii = [46, 11, 9, 20, 3, 15, 8, 63, 11, 9, 24, 3, 5, 45, 51, 2, 23, 9, 17, 1, 1, 37, 29, 6, 3, 9, 25, 5, 43]
@@ -62,6 +63,34 @@ def dutch_flag_partition(lst,p = None,low = None,high = None):
         cands = [(low,lst[low]),((low+high+1)//2,lst[(low+high+1)//2]),(high,lst[high])]
         cands.sort(key=(lambda i:i[1]))
         p = cands[1][0]
+    p_val = lst[p]
+    blue = white = low
+    # white = 0
+    red = high
+    while white <= red:
+        if lst[white] < p_val:
+            lst[white],lst[blue] = lst[blue],lst[white]
+            blue += 1
+            white += 1
+        elif lst[white] > p_val:
+            lst[red],lst[white] = lst[white],lst[red]
+            red -= 1
+        else:
+            white += 1
+    return (lst,blue,white)
+
+def dutch_flag_partition_rand(lst,p = None,low = None,high = None):
+    # if len(lst) <= 1:
+    #     return lst,None,None
+    low = low if low else 0
+    high = high if high else len(lst)-1
+    if p == None:
+        # low,mid,high = (lst[0],lst[len(lst)//2],lst[-1])
+        # p = (low if low > mid and low < high else (mid if low < mid else high))
+        
+        # low,mid,high = (0,len(lst)//2,len(lst)-1)
+        # p = (low if (lst[low] > lst[mid] and lst[low] < lst[high]) or (lst[low] > lst[high] and lst[low] < lst[mid]) else (mid if lst[low] < lst[mid] else high))
+        p = random.randint(low,high)
     p_val = lst[p]
     blue = white = low
     # white = 0

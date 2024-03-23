@@ -1,4 +1,5 @@
 from matplotlib import pyplot as plt
+import random
 
 def plot(lst):
     lii = [46, 11, 9, 20, 3, 15, 8, 63, 11, 9, 24, 3, 5, 45, 51, 2, 23, 9, 17, 1, 1, 37, 29, 6, 3, 9, 25, 5, 43]
@@ -17,3 +18,12 @@ def plot(lst):
     plt.bar_label(barcontainer,lst, label_type='edge')
     plt.axis('off')
     plt.show()
+
+def create_rand_lst(size,min,max,unique = False):
+    if unique:
+        return random.sample(range(min,max),size)
+    else:
+        final = []
+        for _ in range(size):
+            final.append(random.randint(min,max))
+        return final
